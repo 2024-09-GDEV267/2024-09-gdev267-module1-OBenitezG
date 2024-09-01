@@ -16,9 +16,15 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
 	private int count;
 
+	public GameObject preview_camera;
+	public Text enter_text;
+
+	private bool level_preview = true;
+
 	// At the start of the game..
 	void Start ()
 	{
+
 		// Assign the Rigidbody component to our private rb variable
 		rb = GetComponent<Rigidbody>();
 
@@ -30,21 +36,46 @@ public class PlayerController : MonoBehaviour {
 
 		// Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
 		winText.text = "";
+
+        preview_camera.SetActive(true);
+
+    }
+
+	void Update() {
+
+		if (level_preview)
+		{
+			preview_camera.transform.Rotate(new Vector3(0, 10, 0) * Time.deltaTime);
+
+			if (Input.GetKeyDown(KeyCode.Return))
+			{
+                preview_camera.SetActive(false);
+
+				enter_text.text = "";
+
+				level_preview = false;
+            }
+		}
+
 	}
 
 	// Each physics step..
 	void FixedUpdate ()
 	{
-		// Set some local float variables equal to the value of our Horizontal and Vertical Inputs
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+        if (level_preview == false)
+        {
+            // Set some local float variables equal to the value of our Horizontal and Vertical Inputs
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
 
-		// Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+            // Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
+            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-		// Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
-		// multiplying it by 'speed' - our public player speed that appears in the inspector
-		rb.AddForce (movement * speed);
+            // Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
+            // multiplying it by 'speed' - our public player speed that appears in the inspector
+            rb.AddForce(movement * speed);
+        }
+        
 	}
 
 	// When this game object intersects a collider with 'is trigger' checked, 

@@ -35,6 +35,7 @@ public class Basket : MonoBehaviour
         {
             Destroy(collided_with );
             scoreCounter.score += 100;
+            HighScore.TRY_SET_HIGH_SCORE(scoreCounter.score);
         }
     }
 }

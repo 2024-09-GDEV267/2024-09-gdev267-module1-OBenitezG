@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Apple : MonoBehaviour
+public class AppleExercise : MonoBehaviour
 {
     public static float bottomY = -20f;
 
@@ -13,7 +13,7 @@ public class Apple : MonoBehaviour
         {
             Destroy(this.gameObject);
 
-            ApplePicker apScript = Camera.main.GetComponent<ApplePicker>();
+            Exercises apScript = Camera.main.GetComponent<Exercises>();
 
             apScript.AppleMissed();
         }

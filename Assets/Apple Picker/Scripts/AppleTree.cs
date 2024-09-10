@@ -18,7 +18,6 @@ public class AppleTree : MonoBehaviour
     void Start()
     {
 
-        // Start dropping 
         Invoke("DropApple", 2f);
 
     }
@@ -60,6 +59,26 @@ public class AppleTree : MonoBehaviour
             speed *= -1;
         }
 
+    }
+
+    public float getSpeed()
+    {
+        return speed;
+    }
+
+    public void setSpeed(float newSpeed)
+    {
+        speed += newSpeed;
+    }
+
+    public float getAppleDelay()
+    {
+        return apple_delay;
+    }
+
+    public void setAppleDelay(float newAppleDelay)
+    {
+        apple_delay = newAppleDelay;
     }
 
 }

@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class PutGolf : MonoBehaviour
 {
+    [Header("Set in Inspector")]
+    public float velocityMult = 8f;
 
-    public float speed;
+    [Header("Set Dynamically")]
+    public GameObject launchPoint;
+    public GameObject[] RespawnPoint;
+    public bool aimingMode;
 
     private Rigidbody rb;
 
@@ -17,6 +22,12 @@ public class PutGolf : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+
+
+    }
+
     // Each physics step..
     void FixedUpdate()
     {
@@ -24,5 +35,25 @@ public class PutGolf : MonoBehaviour
 
     }
 
+    private void OnMouseEnter()
+    {
+        //print("Slingshot:OnMouseEnter()");
+        launchPoint.SetActive(true);
+    }
+
+
+    private void OnMouseExit()
+    {
+        //print("Slingshot:OnMouseExit()");
+        launchPoint.SetActive(false);
+    }
+
+    private void OnMouseDown()
+    {
+        aimingMode = true;
+
+        rb.isKinematic = true;
+
+    }
 }
 

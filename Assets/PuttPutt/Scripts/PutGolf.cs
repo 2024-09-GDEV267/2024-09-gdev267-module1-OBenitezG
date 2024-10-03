@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,10 @@ public class PutGolf : MonoBehaviour
     public float velocityMult = 8f;
 
     [Header("Set Dynamically")]
-    public GameObject launchPoint;
     public GameObject[] RespawnPoint;
     public bool aimingMode;
 
+    public GameObject mouseTest;
     private Rigidbody rb;
 
     // Start is called before the first frame update
@@ -24,7 +25,36 @@ public class PutGolf : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(rb.velocity);
 
+        if (!aimingMode) return;
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            aimingMode = false;
+
+            Vector3 mousePos2D = Input.mousePosition;
+            mousePos2D.z = -Camera.main.transform.position.z;
+            Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(mousePos2D);
+
+            Vector3 mouseDelta = mousePos3D - transform.position;
+
+            float maxMagnitude = this.GetComponent<SphereCollider>().radius;
+
+            if (mouseDelta.magnitude > maxMagnitude)
+            {
+                mouseDelta.Normalize();
+                mouseDelta *= maxMagnitude;
+            }
+
+            Debug.Log(mouseDelta);
+
+            Vector3 projPos = transform.position + mouseDelta;
+            mouseTest.transform.position = projPos;
+
+            rb.velocity = -mouseDelta * velocityMult;
+
+        }
 
     }
 
@@ -32,27 +62,22 @@ public class PutGolf : MonoBehaviour
     void FixedUpdate()
     {
 
-
     }
 
     private void OnMouseEnter()
     {
         //print("Slingshot:OnMouseEnter()");
-        launchPoint.SetActive(true);
     }
 
 
     private void OnMouseExit()
     {
         //print("Slingshot:OnMouseExit()");
-        launchPoint.SetActive(false);
     }
 
     private void OnMouseDown()
     {
         aimingMode = true;
-
-        rb.isKinematic = true;
 
     }
 }

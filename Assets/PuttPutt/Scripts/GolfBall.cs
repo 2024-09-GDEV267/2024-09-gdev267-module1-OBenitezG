@@ -34,7 +34,7 @@ public class GolfBall : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.manage.state == GameState.preview || GameManager.manage.state == GameState.end) return;
+        if (GameManager.manage.state != GameState.playing) return;
 
         if (aiming)
         {
@@ -105,6 +105,8 @@ public class GolfBall : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (GameManager.manage.state != GameState.playing) return;
+
         if (moving) return;
 
         aiming = true;

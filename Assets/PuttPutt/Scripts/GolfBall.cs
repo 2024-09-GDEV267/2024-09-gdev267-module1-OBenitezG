@@ -34,6 +34,7 @@ public class GolfBall : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.manage.state == GameState.preview || GameManager.manage.state == GameState.end) return;
 
         if (aiming)
         {
@@ -67,6 +68,7 @@ public class GolfBall : MonoBehaviour
 
                 golfballRB.AddForce(-direction * strength * velocityMult);
 
+                GameManager.manage.ScoreIncrease();
 
                 idle = false;
                 moving = true;

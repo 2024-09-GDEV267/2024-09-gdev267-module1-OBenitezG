@@ -14,7 +14,7 @@ public class GoalPuttPutt : MonoBehaviour
 
             if (golfballRB.IsSleeping())
             {
-                //Debug.Log("win");
+                Debug.Log("win");
                 GameManager.manage.state = GameState.end;
             }
 

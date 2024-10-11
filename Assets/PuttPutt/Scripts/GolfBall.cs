@@ -9,6 +9,7 @@ public class GolfBall : MonoBehaviour
     public Vector3 respawnPoint;
 
     [Header("Aiming Field")]
+    public GameObject aimPlain;
     public GameObject mouseTest;
     public LayerMask floor;
 
@@ -72,6 +73,7 @@ public class GolfBall : MonoBehaviour
 
                 idle = false;
                 moving = true;
+                aimPlain.SetActive(false);
 
             }
         }
@@ -110,6 +112,7 @@ public class GolfBall : MonoBehaviour
         if (moving) return;
 
         aiming = true;
+        aimPlain.SetActive(true);
     }
 
 }

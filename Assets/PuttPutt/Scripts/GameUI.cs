@@ -9,6 +9,7 @@ public class GameUI : MonoBehaviour
 
     [Header("Dynamic")]
     private int score;
+    public Text readyCheck;
     public Text uiLevel;
     public Text uiScore;
 
@@ -22,7 +23,17 @@ public class GameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.manage.state != GameState.preview)
+        {
+            readyCheck.text = "";
+        }
+
         uiScore.text = "Score:" + score.ToString("#,0");
+
+        if (GameManager.manage.state == GameState.end)
+        {
+            readyCheck.text = "YOU WIN!";
+        }
     }
 
     public void UpdateScore()
